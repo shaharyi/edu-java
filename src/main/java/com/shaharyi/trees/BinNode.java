@@ -1,8 +1,8 @@
 package com.shaharyi.trees;
 
 public class BinNode<T> {
-  private T value;          // Node value
-  private BinNode<T> right; // next Node
+  private T value;
+  private BinNode<T> right;
   private BinNode<T> left;
 
   /*
@@ -55,8 +55,9 @@ public class BinNode<T> {
     this.value = value;
   }
 
-  /* Returns a string representation of the tree **/
+  /* Returns in-order string representation of the tree **/
   public String toString() {
+    // if leaf avoid recursion
     if (left == null && right == null)
       return value.toString();
     return "( " + left + " " + value + " " + right + " )";
