@@ -47,7 +47,7 @@ class Main {
 			BinNode<Integer> right = fromString(tokenizer);
 			s = tokenizer.nextToken();
 			if (!s.equals(")"))
-        System.out.println("Note: missing ')'");
+				System.out.println("Note: missing ')'");
 			return new BinNode<Integer>(left, value, right);
 		}
 		return new BinNode<Integer>(Integer.valueOf(s));
