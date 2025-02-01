@@ -60,6 +60,7 @@ class Main {
       preOrder(t.getRight());
     }
   }
+	
   public static <T> void inOrder(BinNode<T> t) {
     if (t != null) {
       inOrder(t.getLeft());
@@ -149,7 +150,5 @@ class Main {
 
     return eachHasTwoChildren(t.getLeft()) && eachHasTwoChildren(t.getRight());
   }
-
-
   
 }
