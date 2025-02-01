@@ -40,6 +40,9 @@ class TreeUtil {
 		return r;
 	}
 
+	/*
+ 	 * Serialize binary tree into pre-order scan with null markers
+   	 */
 	static <T> void writeBinaryTree(BinNode<T> p, PrintWriter pw) {
 		if (p == null) {
 			pw.println("NULL");
@@ -50,6 +53,9 @@ class TreeUtil {
 		}
 	}
 
+	/*
+ 	 * Construct binary tree from pre-order scan with null markers
+   	 */
 	static BinNode<String> readBinaryTree(Scanner fileScanner) {
 		if (!fileScanner.hasNextLine())
 			return null;
