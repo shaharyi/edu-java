@@ -150,5 +150,50 @@ class Main {
 
     return eachHasTwoChildren(t.getLeft()) && eachHasTwoChildren(t.getRight());
   }
-  
+	
+ public static String levelToString(BinNode<Integer> t) {
+      Queue<BinNode<Integer>> q = new Queue<BinNode<Integer>>();
+      q.insert(t);
+      String str = "";
+      while (q.isEmpty()==false) {
+          BinNode<Integer> t1 = q.remove();
+          str += t1.getValue()+" ";
+          if (t1.getLeft()!=null) {
+               q.insert(t1.getLeft());
+          }
+          else if (t1.getValue()!=-1) {
+              q.insert(new BinNode<Integer>(-1));
+          }
+          if (t1.getRight()!=null) {
+               q.insert(t1.getRight());
+          }
+          else if (t1.getValue()!=-1) {
+              q.insert(new BinNode<Integer>(-1));
+          }
+      }
+      return str;
+  }
+ 
+ 
+  public static BinNode<Integer> construct(int[] arr)
+  {
+      Queue<BinNode<Integer>> q = new Queue<BinNode<Integer>>();
+      BinNode<Integer> t = new BinNode<Integer>(arr[0]);
+      q.insert(t);
+      int i=0;
+      while (q.isEmpty()==false) {
+          BinNode<Integer> t1 = q.remove();
+          if (arr[i]!=-1) {
+              t1.setLeft(new BinNode<Integer>(arr[i]));
+              q.insert(t1.getLeft());
+          }
+          i++;
+          if (i<arr.length && arr[i]!=-1) {
+              t1.setRight(new BinNode<Integer>(arr[i]));
+              q.insert(t1.getRight());
+          }
+          i++;
+      }
+      return t;
+  }  
 }
