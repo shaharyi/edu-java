@@ -1,6 +1,5 @@
 package com.shaharyi.trees;
 
-
 import java.util.*;
 
 class Main {
