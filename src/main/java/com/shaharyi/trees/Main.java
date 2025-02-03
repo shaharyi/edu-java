@@ -1,30 +1,30 @@
 package com.shaharyi.trees;
 
+
 import java.util.*;
 
 class Main {
 
-  public static void main(String[] args) {
-    BinNode<Integer> t15 = new BinNode<Integer>(15);
-    BinNode<Integer> t14 = new BinNode<Integer>(14);
-    BinNode<Integer> tree = new BinNode<Integer>(t15, 3, t14);
-    BinNode<Integer> t9 = new BinNode<Integer>(9);
-    tree.getLeft().setLeft(new BinNode<Integer>(t9, 6, new BinNode<Integer>(7)));
-    tree.getLeft().setRight(new BinNode<Integer>(new BinNode<Integer>(34), 56, new BinNode<Integer>(12)));
-    System.out.println(tree);
+	public static void main(String[] args) {
+		BinNode<Integer> t15 = new BinNode<Integer>(15);
+		BinNode<Integer> t14 = new BinNode<Integer>(14);
+		BinNode<Integer> tree = new BinNode<Integer>(t15, 3, t14);
+		BinNode<Integer> t9 = new BinNode<Integer>(9);
+		tree.getLeft().setLeft(new BinNode<Integer>(t9, 6, new BinNode<Integer>(7)));
+		tree.getLeft().setRight(new BinNode<Integer>(new BinNode<Integer>(34), 56, new BinNode<Integer>(12)));
+		System.out.println(tree);
 
-    BinNode<Integer> t = fromString("( ( ( 9 6 7 ) 1 null ) 3 ( null 2 4 ) )");
-    
-    System.out.println(t);
+		BinNode<Integer> t = fromString("( ( ( 9 6 7 ) 1 null ) 3 ( null 2 4 ) )");
 
-    // Test your methods here:
-    //inOrder(tree);
-    // printEven(tree);
-    // int count = countNodesAbove(tree, 30);
-    // boolean exists = existsValue(tree, 34);
-    // boolean each = eachHasTwoChildren(tree);
-  }
+		System.out.println(t);
 
+		// Test your methods here:
+		// inOrder(tree);
+		// printEven(tree);
+		// int count = countNodesAbove(tree, 30);
+		// boolean exists = existsValue(tree, 34);
+		// boolean each = eachHasTwoChildren(tree);
+	}
 
 	/* Construct from in-order with brackets */
 	public static BinNode<Integer> fromString(String s) {
@@ -32,7 +32,6 @@ class Main {
 		return fromString(tokenizer);
 	}
 
-  
 	/* Construct from in-order with brackets */
 	public static BinNode<Integer> fromString(StringTokenizer tokenizer) {
 		if (!tokenizer.hasMoreElements())
@@ -53,147 +52,141 @@ class Main {
 		return new BinNode<Integer>(Integer.valueOf(s));
 	}
 
-  public static void preOrder(BinNode<Integer> t) {
-    if (t != null) {
-      System.out.println(t.getValue());
-      preOrder(t.getLeft());
-      preOrder(t.getRight());
-    }
-  }
-	
-  public static <T> void inOrder(BinNode<T> t) {
-    if (t != null) {
-      inOrder(t.getLeft());
-      System.out.println(t.getValue());
-      inOrder(t.getRight());
-    }
-  }
+	public static void preOrder(BinNode<Integer> t) {
+		if (t != null) {
+			System.out.println(t.getValue());
+			preOrder(t.getLeft());
+			preOrder(t.getRight());
+		}
+	}
 
-  public static int sumPos(BinNode<Integer> t) {
-    if (t == null) 
-      return 0;
+	public static <T> void inOrder(BinNode<T> t) {
+		if (t != null) {
+			inOrder(t.getLeft());
+			System.out.println(t.getValue());
+			inOrder(t.getRight());
+		}
+	}
 
-    int a = 0;
-    
-    if (t.getValue() > 0)
-      a = t.getValue();
+	public static int sumPos(BinNode<Integer> t) {
+		if (t == null)
+			return 0;
 
-    return a + sumPos(t.getLeft()) + sumPos(t.getRight());
-  }
+		int a = 0;
 
+		if (t.getValue() > 0)
+			a = t.getValue();
 
-  public static int countLeaves(BinNode<Integer> t) {
-    if (t == null) 
-      return 0;
-    if (!t.hasLeft() && !t.hasRight())
-        return 1;
-    return countLeaves(t.getLeft()) + 
-           countLeaves(t.getRight());
-  }
+		return a + sumPos(t.getLeft()) + sumPos(t.getRight());
+	}
 
-  public static void printEven(BinNode<Integer> t) {
+	public static int countLeaves(BinNode<Integer> t) {
+		if (t == null)
+			return 0;
+		if (!t.hasLeft() && !t.hasRight())
+			return 1;
+		return countLeaves(t.getLeft()) + countLeaves(t.getRight());
+	}
 
-    if (t != null) {
+	public static void printEven(BinNode<Integer> t) {
 
-      printEven(t.getLeft());
+		if (t != null) {
 
-      int value = t.getValue();
+			printEven(t.getLeft());
 
-      if (value % 2 == 0)
-        System.out.println(value);
+			int value = t.getValue();
 
-      printEven(t.getRight());
-    }
-  }
+			if (value % 2 == 0)
+				System.out.println(value);
 
-  public static int countNodesAbove(BinNode<Integer> t, int saf) {
-    if (t == null)
-      return 0;
+			printEven(t.getRight());
+		}
+	}
 
-    int left = countNodesAbove(t.getLeft(), saf);
+	public static int countNodesAbove(BinNode<Integer> t, int saf) {
+		if (t == null)
+			return 0;
 
-    int right = countNodesAbove(t.getRight(), saf);
+		int left = countNodesAbove(t.getLeft(), saf);
 
-    int current = 0;
-    if (t.getValue() > saf)
-      current = 1;
+		int right = countNodesAbove(t.getRight(), saf);
 
-    return current + left + right;
-  }
+		int current = 0;
+		if (t.getValue() > saf)
+			current = 1;
 
-  /*
-   * Returns Is there a node with value of x
-   */
-  public static boolean existsValue(BinNode<Integer> t,int x) {
-    if (t == null)
-      return false;
+		return current + left + right;
+	}
 
-    if (t.getValue() == x)
-      return true;
+	/*
+	 * Returns Is there a node with value of x
+	 */
+	public static boolean existsValue(BinNode<Integer> t, int x) {
+		if (t == null)
+			return false;
 
-    boolean left = existsValue(t.getLeft(), x);
+		if (t.getValue() == x)
+			return true;
 
-    boolean right = existsValue(t.getRight(), x);
+		boolean left = existsValue(t.getLeft(), x);
 
-    return left || right;
-  }
+		boolean right = existsValue(t.getRight(), x);
 
-  public static boolean eachHasTwoChildren(BinNode<Integer> t) {
+		return left || right;
+	}
 
-    // leaf node
-    if (!t.hasLeft() && !t.hasRight())
-      return true;
+	public static boolean eachHasTwoChildren(BinNode<Integer> t) {
 
-    // only one child
-    if (!t.hasRight() || !t.hasLeft())
-      return false;
+		// leaf node
+		if (!t.hasLeft() && !t.hasRight())
+			return true;
 
-    return eachHasTwoChildren(t.getLeft()) && eachHasTwoChildren(t.getRight());
-  }
-	
- public static String levelToString(BinNode<Integer> t) {
-      Queue<BinNode<Integer>> q = new Queue<BinNode<Integer>>();
-      q.insert(t);
-      String str = "";
-      while (q.isEmpty()==false) {
-          BinNode<Integer> t1 = q.remove();
-          str += t1.getValue()+" ";
-          if (t1.getLeft()!=null) {
-               q.insert(t1.getLeft());
-          }
-          else if (t1.getValue()!=-1) {
-              q.insert(new BinNode<Integer>(-1));
-          }
-          if (t1.getRight()!=null) {
-               q.insert(t1.getRight());
-          }
-          else if (t1.getValue()!=-1) {
-              q.insert(new BinNode<Integer>(-1));
-          }
-      }
-      return str;
-  }
- 
- 
-  public static BinNode<Integer> construct(int[] arr)
-  {
-      Queue<BinNode<Integer>> q = new Queue<BinNode<Integer>>();
-      BinNode<Integer> t = new BinNode<Integer>(arr[0]);
-      q.insert(t);
-      int i=0;
-      while (q.isEmpty()==false) {
-          BinNode<Integer> t1 = q.remove();
-          if (arr[i]!=-1) {
-              t1.setLeft(new BinNode<Integer>(arr[i]));
-              q.insert(t1.getLeft());
-          }
-          i++;
-          if (i<arr.length && arr[i]!=-1) {
-              t1.setRight(new BinNode<Integer>(arr[i]));
-              q.insert(t1.getRight());
-          }
-          i++;
-      }
-      return t;
-  }  
+		// only one child
+		if (!t.hasRight() || !t.hasLeft())
+			return false;
+
+		return eachHasTwoChildren(t.getLeft()) && eachHasTwoChildren(t.getRight());
+	}
+
+	public static String levelToString(BinNode<Integer> t) {
+		Queue<BinNode<Integer>> q = new Queue<BinNode<Integer>>();
+		q.insert(t);
+		String str = "";
+		while (q.isEmpty() == false) {
+			BinNode<Integer> t1 = q.remove();
+			str += t1.getValue() + " ";
+			if (t1.getLeft() != null) {
+				q.insert(t1.getLeft());
+			} else if (t1.getValue() != -1) {
+				q.insert(new BinNode<Integer>(-1));
+			}
+			if (t1.getRight() != null) {
+				q.insert(t1.getRight());
+			} else if (t1.getValue() != -1) {
+				q.insert(new BinNode<Integer>(-1));
+			}
+		}
+		return str;
+	}
+
+	public static BinNode<Integer> construct(int[] arr) {
+		Queue<BinNode<Integer>> q = new Queue<BinNode<Integer>>();
+		BinNode<Integer> t = new BinNode<Integer>(arr[0]);
+		q.insert(t);
+		int i = 0;
+		while (q.isEmpty() == false) {
+			BinNode<Integer> t1 = q.remove();
+			if (arr[i] != -1) {
+				t1.setLeft(new BinNode<Integer>(arr[i]));
+				q.insert(t1.getLeft());
+			}
+			i++;
+			if (i < arr.length && arr[i] != -1) {
+				t1.setRight(new BinNode<Integer>(arr[i]));
+				q.insert(t1.getRight());
+			}
+			i++;
+		}
+		return t;
+	}
 }
