@@ -1,4 +1,3 @@
-package com.shaharyi.trees;
 
 import java.util.*;
 
@@ -16,6 +15,10 @@ class Main {
 		BinNode<Integer> t = fromString("( ( ( 9 6 7 ) 1 null ) 3 ( null 2 4 ) )");
 
 		System.out.println(t);
+
+		String s = levelToString(t);
+
+		System.out.println(s);
 
 		// Test your methods here:
 		// inOrder(tree);
@@ -51,6 +54,9 @@ class Main {
 		return new BinNode<Integer>(Integer.valueOf(s));
 	}
 
+	/*
+	 * Type 1: Tree Scan
+	 */
 	public static void preOrder(BinNode<Integer> t) {
 		if (t != null) {
 			System.out.println(t.getValue());
@@ -67,6 +73,20 @@ class Main {
 		}
 	}
 
+	/*
+	 * Type 2: Count
+	 */
+	public static int countLeaves(BinNode<Integer> t) {
+		if (t == null)
+			return 0;
+		if (!t.hasLeft() && !t.hasRight())
+			return 1;
+		return countLeaves(t.getLeft()) + countLeaves(t.getRight());
+	}
+
+	/*
+	 * Type 2a: Sum
+	 */
 	public static int sumPos(BinNode<Integer> t) {
 		if (t == null)
 			return 0;
@@ -79,14 +99,9 @@ class Main {
 		return a + sumPos(t.getLeft()) + sumPos(t.getRight());
 	}
 
-	public static int countLeaves(BinNode<Integer> t) {
-		if (t == null)
-			return 0;
-		if (!t.hasLeft() && !t.hasRight())
-			return 1;
-		return countLeaves(t.getLeft()) + countLeaves(t.getRight());
-	}
-
+	/*
+	 * Type 1: Tree Scan
+	 */
 	public static void printEven(BinNode<Integer> t) {
 
 		if (t != null) {
@@ -102,6 +117,9 @@ class Main {
 		}
 	}
 
+	/*
+	 * Type 2: Count
+	 */
 	public static int countNodesAbove(BinNode<Integer> t, int saf) {
 		if (t == null)
 			return 0;
@@ -118,7 +136,7 @@ class Main {
 	}
 
 	/*
-	 * Returns Is there a node with value of x
+	 * Type 3: Is there a node that meet a condition?
 	 */
 	public static boolean existsValue(BinNode<Integer> t, int x) {
 		if (t == null)
@@ -134,6 +152,9 @@ class Main {
 		return left || right;
 	}
 
+	/*
+	 * Type 4: Do all nodes meet a condition?
+	 */
 	public static boolean eachHasTwoChildren(BinNode<Integer> t) {
 
 		// leaf node
@@ -147,27 +168,38 @@ class Main {
 		return eachHasTwoChildren(t.getLeft()) && eachHasTwoChildren(t.getRight());
 	}
 
+	/*
+	 * Scan level by level. Return a string of all nodes. Author: Eitan Hanam, 2025
+	 */
 	public static String levelToString(BinNode<Integer> t) {
 		Queue<BinNode<Integer>> q = new Queue<BinNode<Integer>>();
 		q.insert(t);
 		String str = "";
-		while (q.isEmpty() == false) {
+		while (!q.isEmpty()) {
 			BinNode<Integer> t1 = q.remove();
 			str += t1.getValue() + " ";
-			if (t1.getLeft() != null) {
-				q.insert(t1.getLeft());
-			} else if (t1.getValue() != -1) {
-				q.insert(new BinNode<Integer>(-1));
-			}
-			if (t1.getRight() != null) {
-				q.insert(t1.getRight());
-			} else if (t1.getValue() != -1) {
-				q.insert(new BinNode<Integer>(-1));
+
+			// don't work on dummy nodes
+			if (t1.getValue() != -1) {
+
+				if (t1.hasLeft())
+					q.insert(t1.getLeft());
+				else
+					q.insert(new BinNode<Integer>(-1));
+
+				if (t1.hasRight())
+					q.insert(t1.getRight());
+				else
+					q.insert(new BinNode<Integer>(-1));
 			}
 		}
 		return str;
 	}
 
+	/*
+	 * Construct a tree by an array of level-order scan. The array includes null
+	 * markers for single-child null nodes. Author: Eitan Hanam, 2025
+	 */
 	public static BinNode<Integer> construct(int[] arr) {
 		Queue<BinNode<Integer>> q = new Queue<BinNode<Integer>>();
 		BinNode<Integer> t = new BinNode<Integer>(arr[0]);
