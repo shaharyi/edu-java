@@ -65,6 +65,9 @@ class Main {
 		}
 	}
 
+	/*
+	 * Type 1: Tree Scan (generic method)
+	 */
 	public static <T> void inOrder(BinNode<T> t) {
 		if (t != null) {
 			inOrder(t.getLeft());
@@ -73,6 +76,40 @@ class Main {
 		}
 	}
 
+	/*
+	 * Type 3: Is there a node that meet a condition?
+	 */
+	public static boolean existsValue(BinNode<Integer> t, int x) {
+		if (t == null)
+			return false;
+
+		if (t.getValue() == x)
+			return true;
+
+		boolean left = existsValue(t.getLeft(), x);
+
+		boolean right = existsValue(t.getRight(), x);
+
+		return left || right;
+	}
+
+	/*
+	 * Type 4: Do all nodes meet a condition?
+	 */
+	public static boolean eachHasTwoChildren(BinNode<Integer> t) {
+
+		// leaf node
+		if (!t.hasLeft() && !t.hasRight())
+			return true;
+
+		// only one child
+		if (!t.hasRight() || !t.hasLeft())
+			return false;
+
+		return eachHasTwoChildren(t.getLeft()) && eachHasTwoChildren(t.getRight());
+	}
+	
+	
 	/*
 	 * Type 2: Count
 	 */
@@ -133,39 +170,6 @@ class Main {
 			current = 1;
 
 		return current + left + right;
-	}
-
-	/*
-	 * Type 3: Is there a node that meet a condition?
-	 */
-	public static boolean existsValue(BinNode<Integer> t, int x) {
-		if (t == null)
-			return false;
-
-		if (t.getValue() == x)
-			return true;
-
-		boolean left = existsValue(t.getLeft(), x);
-
-		boolean right = existsValue(t.getRight(), x);
-
-		return left || right;
-	}
-
-	/*
-	 * Type 4: Do all nodes meet a condition?
-	 */
-	public static boolean eachHasTwoChildren(BinNode<Integer> t) {
-
-		// leaf node
-		if (!t.hasLeft() && !t.hasRight())
-			return true;
-
-		// only one child
-		if (!t.hasRight() || !t.hasLeft())
-			return false;
-
-		return eachHasTwoChildren(t.getLeft()) && eachHasTwoChildren(t.getRight());
 	}
 
 	/*
