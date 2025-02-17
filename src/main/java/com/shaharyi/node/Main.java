@@ -79,6 +79,7 @@ public class Main {
 		
 	public static void testQueue() {
 		Queue<Integer> q = new Queue<Integer>();
+		System.out.println(q);		
 		System.out.println("empty: " + q.isEmpty());
 		q.insert(7);
 		q.insert(5);
