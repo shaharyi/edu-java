@@ -34,7 +34,22 @@ public class Main {
 		return h.getNext();
 	}
 	
-	public static <T> boolean isIn(Queue<T> q, T x) {
+	public static boolean isIn(Queue<Integer> q, int x) {
+		boolean r = false;
+		Queue<Integer> save = new Queue<Integer>();
+		while (!q.isEmpty()) {
+			int a = q.remove();
+			save.insert(a);
+			if (a == x)
+				r = true;
+		}
+		while (!save.isEmpty()) {
+			q.insert(save.remove());
+		}
+		return r;
+	}
+
+	public static <T> boolean isIn_Generic(Queue<T> q, T x) {
 		boolean r = false;
 		Queue<T> save = new Queue<T>();
 		while (!q.isEmpty()) {
@@ -49,7 +64,7 @@ public class Main {
 		return r;
 	}
 	
-	public static <T> boolean isExist(Queue<T> q, T x) {
+	public static <T> boolean isIn_WithMarker(Queue<T> q, T x) {
 		boolean r = false;
 		q.insert(null);
 		while (q.head() != null) {
@@ -64,6 +79,7 @@ public class Main {
 		
 	public static void testQueue() {
 		Queue<Integer> q = new Queue<Integer>();
+		System.out.println("empty: " + q.isEmpty());
 		q.insert(7);
 		q.insert(5);
 		q.insert(5);
@@ -71,6 +87,7 @@ public class Main {
 		q.insert(7);
 		q.insert(3);
 		System.out.println(q);
+		System.out.println("head: " + q.head());
 		System.out.println("isIn(q, 9): " + isIn(q, 9));
 	}
 
