@@ -1,11 +1,15 @@
-
 public class Main {
+
+	public static void main(String[] args) {
+		testRadixSort();		
+	}
 
 	public static int findMax(Queue<Integer> q) {
 		int max = q.head();
 		q.insert(null);
 		while (q.head() != null) {
 			int a = q.remove();
+			q.insert(a);
 			if (a > max)
 				max = a;
 		}
@@ -47,12 +51,14 @@ public class Main {
 			}
 			
 			for (int i = 0; i < a.length; i++) {
-				q.insert(a[i].remove());
+				while (!a[i].isEmpty()) {
+					q.insert(a[i].remove());
+				}
 			}
 		}
 	}
 	
-	public static void main(String[] args) {
+	public static void testRadixSort() {
 		Queue<Integer> q = new Queue<Integer>();
 		q.insert(803);
 		q.insert(7);
@@ -61,10 +67,10 @@ public class Main {
 		System.out.println(q);
 		
 		System.out.println("max = " + findMax(q));
+		System.out.println(q);
 		System.out.println("countDigits(12345) = " + countDigits(12345));
 		System.out.println("digit number 0 from right of 84: " + getDigit(84, 0));
-    sort(q);
+		radixSort(q);
 		System.out.println(q);
-	}
-
-}
+	}	
+	
