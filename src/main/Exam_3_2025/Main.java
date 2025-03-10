@@ -7,6 +7,7 @@ public class Main {
   public static boolean del(Queue<Integer> q, int x) {
 		Queue<Integer> d = new Queue<Integer>();
 		q.insert(null);
+	  	boolean found = false;
 		while (q.head() != null) {
 			int b = 0;
 			int f = 1;
@@ -19,16 +20,16 @@ public class Main {
 			System.out.println(b);
 			d.insert(q.remove());
 			if (b == x) {
-				x = -1;
+				found = true;
 				while (!d.isEmpty())
 					d.remove();
 			} else {
 				while (!d.isEmpty())
-					q.insert(d.remove());
+					q.insert(d.remove());				
 			}
 		}
 		q.remove(); // remove null
-		return x == -1;
+		return found;
 	}
 
 	public static void testDel() {
