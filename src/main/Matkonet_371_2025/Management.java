@@ -27,7 +27,7 @@ public class Management {
 			int j = 0;
 			boolean found = false;
 			while (j < arr.length && !found) {
-				found = arr[j].isReply(arr[i]);
+				found = arr[j].isReply(arr[i]) || arr[i].isReply(arr[j]);
 				j++;
 			}
 			if (!found) {
