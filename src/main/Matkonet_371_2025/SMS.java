@@ -17,6 +17,6 @@ public class SMS {
 	}
 
 	public boolean isReply(SMS other) {
-		return receiver.equals(other.sender);
+		return receiver.equals(other.sender) && sender.equals(other.receiver);
 	}	
 }
