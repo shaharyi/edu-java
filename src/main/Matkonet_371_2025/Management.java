@@ -27,10 +27,10 @@ public class Management {
 			int j = 0;
 			boolean found = false;
 			while (j < arr.length && !found) {
-				found = arr[j].isReply(arr[i]) || arr[i].isReply(arr[j]);
+				found = arr[j].isReply(arr[i]);
 				j++;
 			}
-			if (!found) {
+			if (!found && !exist(r, arr[i].getReceiver())) {
 				r[count] = arr[i].getReceiver();
 				count++;
 			}
@@ -41,4 +41,13 @@ public class Management {
 		}
 		return ret;
 	}
+
+	public boolean exist(String[] arr, String s) {
+		for (int i = 0; i < arr.length; i++) {
+			if (arr[i].equals(s))
+				return true;
+		}
+		return false;
+	}
+
 }
