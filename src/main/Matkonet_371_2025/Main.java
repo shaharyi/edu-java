@@ -7,7 +7,7 @@ public class Main {
 	}
 
 	/*
-	 * Q1a Does s1 contain all LETTERS from s2 Assume no repetitions in s1 nor in s2
+	 * Q2a Does s1 contain all LETTERS from s2 Assume no repetitions in s1 nor in s2
 	 */
 	public static boolean isWrap(String s1, String s2) {
 		for (int i = 0; i < s1.length(); i++) {
@@ -20,7 +20,7 @@ public class Main {
 	}
 
 	/*
-	 * Q1b
+	 * Q2b
 	 * 
 	 * @return How many items of arrs1 wrap ALL items in arrs2
 	 */
