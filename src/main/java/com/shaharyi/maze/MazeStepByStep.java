@@ -1,20 +1,19 @@
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.util.Arrays;
 import java.util.Random;
+import java.util.Scanner;
 
-public class MazeStepByStep {
+public class MazeStep {
 	// Odd sizes give single-cell corridors without “double-print” tricks
-	static final int W = 21, H = 11;
+	static final int W = 11, H = 7;
 	static final char WALL = 'B', PATH = ' ';
 	static final char[][] M = new char[H][W];
 	static final Random rnd = new Random(); // use new Random(0) for deterministic demo
-	static final BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+	static final Scanner scan = new Scanner(System.in);	
 	static int step = 0;
 
 	public static void main(String[] args) throws Exception {
 		for (int y = 0; y < H; y++)
-			Arrays.fill(M[y], WALL);
+			for (int x = 0; x < W; x++)
+				M[y][x] = WALL;
 		carve(1, 1); // start inside the border
 
 		// Punch entrance (top) and exit (bottom), with a couple of final steps
@@ -60,7 +59,7 @@ public class MazeStepByStep {
 			}
 			System.out.println();
 		}
-		in.readLine(); // wait for keypress
+		scan.nextLine(); // wait for Enter
 	}
 
 	// Fisher–Yates shuffle
