@@ -20,7 +20,8 @@ class Pi {
 		if (n == m)
 			return 0;
 		else {
-			double x = ((2 * n) - 1) * ((2 * n) - 1) / (6 + contFracPI(n + 1, m));
+			int a = (2 * n) - 1;
+			double x = (a * a) / (6 + contFracPI(n + 1, m));
 			return x;
 		}
 	}
