@@ -29,8 +29,8 @@ public class Main {
 	}
 
 	public static void test() {
-		String catalog[] = readFile("top100.txt");
-		Karaoke k = new Karaoke(catalog, 10);
+		String catalog[] = readFile("data/top100.txt");
+		Karaoke k = new Karaoke(catalog, 20);
 		k.addSinger("1", 3);
 		k.addSinger("2", 13);
 		k.addSinger("3", 23);
