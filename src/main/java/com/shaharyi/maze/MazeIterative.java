@@ -1,3 +1,5 @@
+package com.shaharyi.maze;
+
 import java.util.Random;
 import java.util.Scanner;
 

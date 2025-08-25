@@ -1,7 +1,9 @@
+package com.shaharyi.maze;
+
 import java.util.Random;
 import java.util.Scanner;
 
-public class MazeStep {
+public class MazeStepByStep {
 	// Odd sizes give single-cell corridors without “double-print” tricks
 	static final int W = 11, H = 7;   // width, height
 	static final char WALL = 'B', PATH = ' ';
