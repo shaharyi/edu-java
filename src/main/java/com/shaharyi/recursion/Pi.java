@@ -4,11 +4,12 @@ package com.shaharyi.recursion;
 
 class Pi {
 	public static void main(String[] args) {
-		System.out.println(sum(5));
+		System.out.println("page 26 q.11: " + sum(5));
 		System.out.println("start");
-		double r = 4 * calcPI(0, 0, 0.0001);
+		System.out.println(Math.PI);
+		double r = 4 * leibniz2(0, 0, 0.0001);
 		System.out.println(r);
-		r = 4 * PI(0, 0.0001);
+		r = 4 * leibniz(0, 0.0001);
 		System.out.println(r);
 		r = 3 + contFracPI(1, 5000);
 		System.out.println(r);
@@ -26,6 +27,7 @@ class Pi {
 		}
 	}
 
+	// linear convergence
 	public static double euler(int n, int m) {
 		if (n == m)
 			return 0;
@@ -35,25 +37,22 @@ class Pi {
 		}
 	}
 
-	public static double calcPI(int n, double c, double precision) {
+	public static double leibniz2(int n, double c, double precision) {
 		double e = 1.0 / (2 * n + 1);
 		if (e < precision)
 			return c;
-		int sign = -n % 2;
-		if (sign == 0)
-			sign = 1;
-		return calcPI(n + 1, c + sign * e, precision);
+		int sign = -2 * (n % 2) + 1;
+		return leibniz2(n + 1, c + sign * e, precision);
 	}
 
-	public static double PI(int n, double precision) {
-		int sign = -n % 2;
-		if (sign == 0)
-			sign = 1;
+	// Slow convergence: for 3E+n elements, we get n digits of PI
+	public static double leibniz(int n, double precision) {
+		int sign = -2 * (n % 2) + 1;
 		double e = (double) sign / (2 * n + 1);
 		// System.out.println(e);
 		if (Math.abs(e) < precision)
 			return 0;
-		return e + PI(n + 1, precision);
+		return e + leibniz(n + 1, precision);
 	}
 
 	// page 26 q.11
