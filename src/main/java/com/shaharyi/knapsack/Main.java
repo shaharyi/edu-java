@@ -26,8 +26,26 @@ class Main {
   
     
   public static void main(String[] args) {
-    int val[] = new int[]{60, 100, 120}; 
-    int wt[] = new int[]{10, 20, 30}; 
+    test1();
+    test2();
+  }
+  
+  /* greedy algorithm will fail this test
+   if it works by value/weight ratio  */
+  public static void test1(String[] args) {
+    int val[] = new int[] {60, 100, 120}; 
+    int wt[] = new int[]  {10,  20,  30}; 
+    int  W = 50; 
+    int n = val.length; 
+    System.out.println(knapSack(W, wt, val, n)); 
+  }
+  
+  /* that greedy algorithm will fail this test also
+     even if you have multiple copies of every object
+  */
+  public static void test2(String[] args) {
+    int val[] = new int[] {9, 7}; 
+    int wt[] = new int[]  {5, 4}; 
     int  W = 50; 
     int n = val.length; 
     System.out.println(knapSack(W, wt, val, n)); 
