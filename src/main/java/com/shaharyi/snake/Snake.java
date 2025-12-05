@@ -36,7 +36,8 @@ public class Snake {
         Node<Point> newHead = new Node<>(newHeadPos);
         newHead.setNext(head);
         head = newHead;
-
+        // alternative 1-liner: head = new Node<>(newHeadPos, head);
+        
         if (!grow) {
             removeTail();
         }
@@ -53,13 +54,7 @@ public class Snake {
     }
     
     public void printState() {
-        System.out.print("Snake: ");
-        Node<Point> curr = head;
-        while (curr != null) {
-            System.out.print(curr.getValue() + " -> ");
-            curr = curr.getNext();
-        }
-        System.out.println("null");
+        System.out.println("Snake: " + head);
     }    
 }
 
