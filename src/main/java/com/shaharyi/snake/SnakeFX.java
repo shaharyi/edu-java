@@ -8,6 +8,7 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.text.Font;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyCode;
@@ -19,9 +20,11 @@ import javafx.util.Duration;
 
 public class SnakeFX extends Application {
 
-    private static final int CELL = 20;
-    private static final int W = 30;
-    private static final int H = 20;
+    private static final int CELL = 30;
+    private static final int W = 60;
+    private static final int H = 40;
+    private static final int FONT_HEIGHT = CELL;
+    private static final int FONT_WIDTH = (int)(FONT_HEIGHT * 0.6);
 
     private Snake snake;
     private Point food;
@@ -36,22 +39,35 @@ public class SnakeFX extends Application {
 
         Canvas canvas = new Canvas(W * CELL, H * CELL);
         GraphicsContext gc = canvas.getGraphicsContext2D();
-
+        gc.setFont(Font.font("Monospaced", CELL));
+        
         resetGame();
 
         Scene scene = new Scene(new StackPane(canvas));
 
         scene.setOnKeyPressed(e -> {
             if (gameOver) {
-                if (e.getCode() == KeyCode.R) resetGame();
-                if (e.getCode() == KeyCode.ESCAPE) stage.close();
+                if (e.getCode() == KeyCode.R) 
+                    resetGame();
+                if (e.getCode() == KeyCode.ESCAPE) 
+                    stage.close();
                 return;
             }
 
-            if (e.getCode() == KeyCode.UP && dy != 1) { dx = 0; dy = -1; }
-            else if (e.getCode() == KeyCode.DOWN && dy != -1) { dx = 0; dy = 1; }
-            else if (e.getCode() == KeyCode.LEFT && dx != 1) { dx = -1; dy = 0; }
-            else if (e.getCode() == KeyCode.RIGHT && dx != -1) { dx = 1; dy = 0; }
+            if (e.getCode() == KeyCode.UP && dy != 1) { 
+                dx = 0;
+                dy = -1; 
+            } else if (e.getCode() == KeyCode.DOWN && dy != -1) {
+                dx = 0;
+                dy = 1; 
+            } else if (e.getCode() == KeyCode.LEFT && dx != 1) { 
+                dx = -1;
+                dy = 0; 
+            }
+            else if (e.getCode() == KeyCode.RIGHT && dx != -1) {
+                dx = 1;
+                dy = 0; 
+            }
         });
 
         Timeline loop = new Timeline(new KeyFrame(Duration.millis(120), e -> update(gc)));
@@ -127,17 +143,21 @@ public class SnakeFX extends Application {
 
         // Draw score
         gc.setFill(Color.WHITE);
-        gc.fillText("Score: " + apples, 10, 20);
+        gc.fillText("Score: " + apples, 10, CELL);
     }
 
     private void drawGameOver(GraphicsContext gc) {
+        String msg;
         gc.setFill(Color.BLACK);
         gc.fillRect(0, 0, W * CELL, H * CELL);
 
         gc.setFill(Color.WHITE);
-        gc.fillText("GAME OVER", W * CELL / 2 - 40, H * CELL / 2 - 20);
-        gc.fillText("Score: " + apples, W * CELL / 2 - 30, H * CELL / 2);
-        gc.fillText("Press R to restart, ESC to exit", W * CELL / 2 - 130, H * CELL / 2 + 30);
+        msg = "GAME OVER";
+        gc.fillText(msg, W * CELL / 2 - msg.length()/2 * FONT_WIDTH, H * CELL / 2 - 2*FONT_HEIGHT);
+        msg = "Score:  " + apples;
+        gc.fillText(msg, W * CELL / 2 - msg.length()/2 * FONT_WIDTH, H * CELL / 2);
+        msg = "Press R to restart, ESC to exit";
+        gc.fillText(msg, W * CELL / 2 - msg.length()/2 * FONT_WIDTH, H * CELL / 2 + 2*FONT_HEIGHT);
     }
 
     public static void main(String[] args) {
