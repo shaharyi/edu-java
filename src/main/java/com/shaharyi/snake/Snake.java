@@ -22,7 +22,8 @@ public class Snake {
     public boolean contains(Point p) {
         Node<Point> curr = head;
         while (curr != null) {
-            if (curr.getValue().equals(p)) return true;
+            if (curr.getValue().equals(p))
+                return true;
             curr = curr.getNext();
         }
         return false;
@@ -43,7 +44,8 @@ public class Snake {
     }
 
     private void removeTail() {
-        if (head == null || head.getNext() == null) return;
+        if (head == null || head.getNext() == null)
+            return;
 
         Node<Point> curr = head;
         while (curr.getNext().getNext() != null) {
