@@ -28,7 +28,11 @@ public class Snake {
         return false;
     }
 
-    public void moveTo(Point newHeadPos, boolean grow) {
+    public void moveTo(Point newHeadPos, boolean grow) {     
+        // prepend to head in 1 line:
+        //head = new Node<>(newHeadPos, head);
+        
+        // prepend to head in 3 lines:
         Node<Point> newHead = new Node<>(newHeadPos);
         newHead.setNext(head);
         head = newHead;
