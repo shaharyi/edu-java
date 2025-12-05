@@ -47,5 +47,15 @@ public class Snake {
         }
         curr.setNext(null);
     }
+    
+    public void printState() {
+        System.out.print("Snake: ");
+        Node<Point> curr = head;
+        while (curr != null) {
+            System.out.print(curr.getValue() + " -> ");
+            curr = curr.getNext();
+        }
+        System.out.println("null");
+    }    
 }
 

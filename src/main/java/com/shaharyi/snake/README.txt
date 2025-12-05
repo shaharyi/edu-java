@@ -6,3 +6,11 @@ javac --module-path /usr/share/openjfx/lib       --add-modules javafx.controls,j
 
 java --module-path /usr/share/openjfx/lib      --add-modules javafx.controls,javafx.graphics      com.shaharyi.snake.SnakeFX
 
+
+Exercises:
+
+1. implement removeTail() themselves
+
+2. detect self-collision
+
+

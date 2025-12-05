@@ -98,6 +98,7 @@ public class SnakeFX extends Application {
 
         boolean ate = newHead.equals(food);
         snake.moveTo(newHead, ate);
+        snake.printState();
 
         if (ate) {
             apples++;
