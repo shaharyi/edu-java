@@ -36,7 +36,6 @@ public class Snake {
         Node<Point> newHead = new Node<>(newHeadPos);
         newHead.setNext(head);
         head = newHead;
-        // alternative 1-liner: head = new Node<>(newHeadPos, head);
         
         if (!grow) {
             removeTail();
