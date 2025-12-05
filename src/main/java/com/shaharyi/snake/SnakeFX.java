@@ -125,7 +125,7 @@ public class SnakeFX extends Application {
             curr = curr.getNext();
         }
 
-        // Draw apples
+        // Draw score
         gc.setFill(Color.WHITE);
         gc.fillText("Score: " + apples, 10, 20);
     }

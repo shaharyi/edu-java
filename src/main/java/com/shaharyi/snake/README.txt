@@ -13,4 +13,8 @@ Exercises:
 
 2. detect self-collision
 
+3. make food a linked list of Point and detect eating food
+
+4. add another Snake controlled by keys WASD
+  4.1 detect snakes collision and kill culprit alone.
 
