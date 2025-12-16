@@ -15,7 +15,7 @@ public class SnakeText {
 	static final char SNAKE_BODY = 'o';
 	static final char APPLE = '@';
 
-	static final Random rng = new Random();
+	static final Random randGen = new Random();
 
 	public static void main(String[] args) throws Exception {
 		// Helpful for many terminals to make "no echo" / "instant keys":
@@ -98,10 +98,13 @@ public class SnakeText {
 	}
 
 	static Point randomApple(Snake snake) {
-		Point p;
-		do {
-			p = new Point(rng.nextInt(W), rng.nextInt(H));
-		} while (snake.contains(p));
+		Point p = null;
+		boolean done = false;
+		while (!done) {
+			p = new Point(randGen.nextInt(W), randGen.nextInt(H));
+			done = !snake.contains(p);
+		}
+		;
 		return p;
 	}
 
@@ -128,7 +131,7 @@ public class SnakeText {
 		StringBuilder sb = new StringBuilder();
 		clearScreenInto(sb);
 
-		// --- top border (scaled) ---
+		// --- top border ---
 		sb.append(WALL);
 		for (int i = 0; i < W; i++)
 			sb.append(WALL);
@@ -155,7 +158,7 @@ public class SnakeText {
 			sb.append(WALL).append('\n');
 		}
 
-		// --- bottom border (scaled) ---
+		// --- bottom border ---
 		sb.append(WALL);
 		for (int i = 0; i < W; i++)
 			sb.append(WALL);
@@ -184,7 +187,8 @@ public class SnakeText {
 		if (remaining > 0) {
 			try {
 				Thread.sleep(remaining);
-			} catch (InterruptedException ignored) {
+			} catch (InterruptedException e) {
+				// pass
 			}
 		}
 	}
