@@ -73,5 +73,14 @@ public class Main {
 		}
 		return h.getNext();
   }
+	
+  //////
+  // Q3
+  //////
+  a) break to 4 languages, write each language, draw automata for each, show how they combine.
+  b)
+	L1 - non regular due to unbound counting dependancy.
+	L2 - regular, since it is (ab)^2n
+	L3 - regular, since it is (ab)^2n+1
+	L4 - regular, since it is finite language (4 words actually).
 }
-
