@@ -57,9 +57,9 @@ public class Main {
 		return c;
   }
   
-//////
-// Q2 - Move repetitions to another list and return it
-//////
+  //////
+  // Q2 - Move repetitions to another list and return it
+  //////
   public static Node<Integer> moveRep(Node<Integer> p) {
 		Node<Integer> h = new Node<>(-1);
 		Node<Integer> a = h;
