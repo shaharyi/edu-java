@@ -33,7 +33,7 @@ public class Main {
 	}
 
 	/**
-	 * Hands 0, 2 = first couple Hands 1, 3 = second couple
+	 * Hands (0, 2) = first couple Hands (1, 3) = second couple
 	 * 
 	 * @return number of tricks for first couple (not the dealer)
 	 */
