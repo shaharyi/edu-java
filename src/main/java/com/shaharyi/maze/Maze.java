@@ -7,22 +7,19 @@ import com.shaharyi.node.Stack;
 public class Maze {
 	public Mat mat;
 	private Random rand = new Random();
-	private char wall;
-	private char crumb;
-	private char path;
-	private char clear;
 	private Point start;
 	private Point end;
 
+	static final private char WALL = '@';
+	static final private char CRUMB = '.';
+	static final private char PATH = '+';
+	static final private char CLEAR = ' ';
+
 	public Maze(int w, int h) {
-		mat = new Mat(w, h);
 		start = new Point(1, 1);
 		end = new Point(w - 2, h - 2);
-		clear = ' ';
-		wall = '@';
-		crumb = '.';
-		path = '+';
-		mat.fill(wall);
+		mat = new Mat(w, h);
+		mat.fill(WALL);
 		genRecurse(start);
 		// genStack(start);
 		mat.set(start, 'X');
@@ -72,28 +69,28 @@ public class Maze {
 	public void genRecurse(Point pos) {
 		mat.print();
 
-		mat.set(pos, clear);
+		mat.set(pos, CLEAR);
 		Point[] neibors = neighbors(pos, 2, true);
 		Point mid;
 		for (int i = 0; i < neibors.length; i++) {
-			if (mat.get(neibors[i]) == wall) {
+			if (mat.get(neibors[i]) == WALL) {
 				mid = middle(pos, neibors[i]);
-				mat.set(mid, clear);
+				mat.set(mid, CLEAR);
 				genRecurse(neibors[i]);
 			}
 		}
 	}
 
 	public void genRecurseRand(Point pos) {
-		mat.set(pos, clear);
+		mat.set(pos, CLEAR);
 		Point[] neibors = neighbors(pos, 2, false);
 		Point next = null;
 		for (int i = neibors.length; i > 0; i--) {
 			int r = rand.nextInt(i);
 			next = new Point(neibors[r]);
 			neibors[r] = neibors[i - 1];
-			if (mat.get(next) == wall) {
-				mat.set(middle(pos, next), clear);
+			if (mat.get(next) == WALL) {
+				mat.set(middle(pos, next), CLEAR);
 				genRecurseRand(next);
 			}
 		}
@@ -101,7 +98,7 @@ public class Maze {
 
 	public void genStack(Point pos) {
 		Stack<Point> stack = new Stack<>();
-		mat.set(pos, clear);
+		mat.set(pos, CLEAR);
 		stack.push(pos);
 		Point[] neibors;
 		Point mid;
@@ -109,10 +106,10 @@ public class Maze {
 			pos = stack.pop();
 			neibors = neighbors(pos, 2, true);
 			for (int i = 0; i < neibors.length; i++) {
-				if (mat.get(neibors[i]) == wall) {
-					mat.set(neibors[i], clear);
+				if (mat.get(neibors[i]) == WALL) {
+					mat.set(neibors[i], CLEAR);
 					mid = middle(pos, neibors[i]);
-					mat.set(mid, clear);
+					mat.set(mid, CLEAR);
 					stack.push(neibors[i]);
 				}
 			}
@@ -123,16 +120,48 @@ public class Maze {
 		solve(start);
 	}
 
+	/**
+	 * Solve using Tremaux algorithm:
+	 * Leave a mark behind you.
+	 * On junction explore every non marked direction.
+	 * 
+	 * @param x, y = current position (start with 1,1)
+	 * @return true if this is part of the solution path
+	 */
+	public boolean solve2(int x, int y) {
+		final int[][] OFFSETS = {
+		        {-1,  0}, // NORTH
+		        { 1,  0}, // SOUTH
+		        { 0,  1}, // EAST
+		        { 0, -1}  // WEST
+		    };
+		if (x == end.x && y == end.y)
+			return true;
+		if (mat.get(x, y) == WALL || mat.get(x, y) == CRUMB)
+			return false;
+		mat.set(x, y, CRUMB);
+
+		for (int i = 0; i < 4; i++) {
+			int x1 = x + OFFSETS[i][0];
+			int y1 = y + OFFSETS[i][1];
+				if (solve2(x1, y1)) {
+					mat.set(x, y, PATH);
+					return true;
+				}
+		}
+		return false;
+	}
+
 	public boolean solve(Point pos) {
 		if (pos.equals(end))
 			return true;
-		if (mat.get(pos) == wall || mat.get(pos) == crumb)
+		if (mat.get(pos) == WALL || mat.get(pos) == CRUMB)
 			return false;
-		mat.set(pos, crumb);
+		mat.set(pos, CRUMB);
 		Point[] neibors = neighbors(pos, 1, false);
 		for (int i = 0; i < neibors.length; i++) {
 			if (solve(neibors[i])) {
-				mat.set(pos, path);
+				mat.set(pos, PATH);
 				return true;
 			}
 		}
