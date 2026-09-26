@@ -99,7 +99,7 @@ public class SimpleMaze {
 	}
 
 	public static boolean solve(char[][] m, int y, int x) {
-		if (x == WIDTH - 1 && y == HEIGHT - 1)
+		if (x == WIDTH - 2 && y == HEIGHT - 2)
 			return true;
 		if (m[y][x] == WALL || m[y][x] == CRUMB)
 			return false;
