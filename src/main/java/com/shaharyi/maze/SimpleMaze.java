@@ -13,7 +13,7 @@ public class SimpleMaze {
 	static final private char PATH = '+';
 	static final private char CLEAR = ' ';
 
-	static final private int[][] OFFSETS = { 
+	static final private int[][] OFFSETS = {
 			{ -1, 0 }, // NORTH
 			{ 1, 0 }, // SOUTH
 			{ 0, 1 }, // EAST
@@ -25,7 +25,7 @@ public class SimpleMaze {
 		fill(mat, WALL);
 		genRecurse(mat, 1, 1);
 		mat[1][1] = START;
-		mat[HEIGHT - 1][WIDTH - 1] = END;
+		mat[HEIGHT - 2][WIDTH - 2] = END;
 		print(mat);
 		solve(mat, 1, 1);
 		print(mat);
@@ -50,16 +50,21 @@ public class SimpleMaze {
 	}
 
 	/*
-	 * @return array of the 4 neighbors coordinates of (x, y) in distance of "step"
+	 * fill array of the 4 neighbors coordinates of (x, y) in distance of "step"
 	 * looking like: [[y1,x1], [y2,x2], ... ]
 	 */
-	public static int[][] getNeighbors(int y, int x, int step) {
-		int[][] n = new int[HEIGHT][WIDTH];
-		for (int i = 3; i > 0; i--) {
-			n[i][0] = y + step * OFFSETS[i][0];
-			n[i][1] = x + step * OFFSETS[i][1];
+	public static int getNeighbors(int[][] n, int y, int x, int step) {
+		int num = 0;
+		for (int i = 0; i < 4; i++) {
+			int ny = y + step * OFFSETS[i][0];
+			int nx = x + step * OFFSETS[i][1];
+			if (ny >= 0 && ny < HEIGHT && nx >= 0 && nx < WIDTH) {
+				n[num][0] = ny;
+				n[num][1] = nx;
+				num++;
+			}
 		}
-		return n;
+		return num;
 	}
 
 	static void swap(Object[] arr, int i, int j) {
@@ -68,8 +73,8 @@ public class SimpleMaze {
 		arr[j] = temp;
 	}
 
-	static void shuffle(Object[] arr) {
-		for (int i = arr.length; i > 0; i--) {
+	static void shuffle(Object[] arr, int num) {
+		for (int i = num; i > 0; i--) {
 			int r = (int) (Math.random() * i);
 			swap(arr, r, i - 1);
 		}
@@ -78,9 +83,10 @@ public class SimpleMaze {
 	public static void genRecurse(char[][] mat, int y, int x) {
 		print(mat);
 		mat[y][x] = CLEAR;
-		int[][] n = getNeighbors(y, x, 2);
-		shuffle(n);
-		for (int i = 0; i < 4; i++) {
+		int[][] n = new int[4][2];
+		int num = getNeighbors(n, y, x, 2);
+		shuffle(n, num);
+		for (int i = 0; i < num; i++) {
 			int ny = n[i][0];
 			int nx = n[i][1];
 			if (mat[ny][nx] == WALL) {
@@ -102,9 +108,11 @@ public class SimpleMaze {
 		for (int i = 0; i < 4; i++) {
 			int ny = y + OFFSETS[i][0];
 			int nx = x + OFFSETS[i][1];
-			if (solve(m, ny, nx)) {
-				m[y][x] = PATH;
-				return true;
+			if (ny >= 0 && ny < HEIGHT && nx >= 0 && nx < WIDTH) {			
+				if (solve(m, ny, nx)) {
+					m[y][x] = PATH;
+					return true;
+				}
 			}
 		}
 		return false;
