@@ -42,4 +42,7 @@ public class Singer {
 		numSongs++;
 	}
 		
+	public int getDiff(String jenre) {
+		return 0;
+	}
 }
