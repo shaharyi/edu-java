@@ -7,7 +7,7 @@ class Pi {
 		System.out.println("page 26 q.11: " + sum(5));
 		System.out.println("start");
 		System.out.println(Math.PI);
-		double r = 4 * leibniz2(0, 0, 0.0001);
+		double r = 4 * leibniz_tail(0, 0, 0.0001);
 		System.out.println(r);
 		r = 4 * leibniz(0, 0.0001);
 		System.out.println(r);
@@ -37,12 +37,12 @@ class Pi {
 		}
 	}
 
-	public static double leibniz2(int n, double c, double precision) {
+	public static double leibniz_tail(int n, double c, double precision) {
 		double e = 1.0 / (2 * n + 1);
 		if (e < precision)
 			return c;
 		int sign = -2 * (n % 2) + 1;
-		return leibniz2(n + 1, c + sign * e, precision);
+		return leibniz_tail(n + 1, c + sign * e, precision);
 	}
 
 	// Slow convergence: for 3E+n elements, we get n digits of PI
