@@ -6,7 +6,7 @@ public class FolderSize {
 
 	public static void main(String[] args) {
 
-		File myFolder = new File("..");
+		File myFolder = new File(".");
 
 		long totalSize = getFolderSize(myFolder);
 
@@ -14,8 +14,9 @@ public class FolderSize {
 
 		double avgSize = 0;
 
-		System.out.println("Total Bytes: " + totalSize);
-		System.out.println("Total Files: " + totalNumFiles);
+		System.out.println("Folder:        " + myFolder.getAbsolutePath());
+		System.out.println("Total Bytes:   " + totalSize);
+		System.out.println("Total Files:   " + totalNumFiles);
 		System.out.println("Avg file size: " + avgSize);
 	}
 
