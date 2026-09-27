@@ -1,4 +1,4 @@
-class Main {
+class MainArr {
     public static void main(String[] args) {
         int numPlayers = 4;
         Player p[] = new Player[numPlayers];
