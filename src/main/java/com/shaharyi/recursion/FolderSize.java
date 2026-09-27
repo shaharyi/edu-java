@@ -6,13 +6,13 @@ public class FolderSize {
 
 	public static void main(String[] args) {
 
-		File myFolder = new File(".");
+		File myFolder = new File("..");
 
 		long totalSize = getFolderSize(myFolder);
 
 		int totalNumFiles = getNumFiles(myFolder);
 
-		double avgSize = (double) totalSize / totalNumFiles;
+		double avgSize = 0;
 
 		System.out.println("Total Bytes: " + totalSize);
 		System.out.println("Total Files: " + totalNumFiles);
@@ -34,14 +34,7 @@ public class FolderSize {
 
 	public static int getNumFiles(File folder) {
 		int totalNum = 0;
-		File[] files = folder.listFiles();
-
-		for (int i = 0; i < files.length; i++) {
-			if (files[i].isDirectory())
-				totalNum += getNumFiles(files[i]);
-			else
-				totalNum += 1;
-		}
+		
 		return totalNum;
 	}
 
